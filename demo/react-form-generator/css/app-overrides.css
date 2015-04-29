@@ -1,0 +1,234 @@
+/* LABELS */
+label {
+    color: #555;
+    padding-left: 0 !important;
+}
+
+/* HEADERS */
+h1, h2, h3, h4, h5 { color: #555; }
+
+/* INPUTS */
+input, textarea {
+    position: relative;
+    padding: 4px 10px;
+    background: #fff;
+    border: 1px solid #d8d8d8;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    outline: 0 none;
+    color: #555;
+}
+.generated-text-field { margin-bottom: 10px; }
+.generated-text-field:read-only {
+    color: #777;
+    background-color: #f0f0f0;
+}
+.generated-textarea-field {
+    min-height: 90px;
+    min-width: 370px;
+    margin-bottom: 10px;
+}
+
+
+/* TABLES */
+.public_fixedDataTable_main {
+    margin-top: 15px;
+    /* border radius */
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.public_fixedDataTable_header,
+.public_fixedDataTable_header .public_fixedDataTableCell_main {
+    background-image: none;
+    background-color: #4a4d50;
+    color: #ffffff;
+}
+.public_fixedDataTableRow_highlighted,
+.public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
+    background-color: #f0f0f0;
+}
+
+
+/* BUTTONS */
+
+/* Button links */
+.btn-link,
+.btn-link:focus { color: #23527c; text-decoration: underline; }
+.btn-link:hover { opacity: .7; }
+.btn-link:active { opacity: .9; }
+
+/* Common */
+.btn {
+    border: 0 none;
+    font-weight: 300;
+    /* border radius */
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    /* transition */
+    -webkit-transition: all .15s ease;
+    -moz-transition:    all .15s ease;
+    transition:         all .15s ease;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+/* Dark grey button */
+.btn-grey,
+.btn-grey:focus {
+    color: #ffffff;
+    background-color: #4a4d50;
+    border-color: #4a4d50;
+}
+.btn-grey:hover {
+    color: #ffffff;
+    background-color: #63676a;
+    border-color: #4a4d50;
+}
+.btn-grey:active {
+    color: #ffffff;
+    background-color: #313436;
+    border-color: #4a4d50;
+}
+
+/* Blue button */
+.btn-blue,
+.btn-blue:focus {
+    color: #ffffff;
+    background-color: #3085d6;
+    border-color: #3085d6;
+}
+.btn-blue:hover {
+    color: #ffffff;
+    background-color: #5b9ede;
+    border-color: #3085d6;
+}
+.btn-blue:active {
+    color: #ffffff;
+    background-color: #236bb0;
+    border-color: #3085d6;
+}
+
+/* Green button */
+.btn-green,
+.btn-green:focus {
+    color: #ffffff;
+    background-color: #42a35a;
+    border-color: #42a35a;
+}
+.btn-green:hover {
+    color: #ffffff;
+    background-color: #5bbd73;
+    border-color: #42a35a;
+}
+.btn-green:active {
+    color: #ffffff;
+    background-color: #337f46;
+    border-color: #42a35a;
+}
+
+/* Yellow button */
+.btn-yellow,
+.btn-yellow:focus {
+    color: #ffffff;
+    background-color: #f6b83f;
+    border-color: #f6b83f;
+}
+.btn-yellow:hover {
+    color: #ffffff;
+    background-color: #f8ca70;
+    border-color: #f6b83f;
+}
+.btn-yellow:active {
+    color: #ffffff;
+    background-color: #f4a60e;
+    border-color: #f6b83f;
+}
+
+/* Red button */
+.btn-red,
+.btn-red:focus {
+    color: #ffffff;
+    background-color: #ca3838;
+    border-color: #ca3838;
+}
+.btn-red:hover {
+    color: #ffffff;
+    background-color: #d56060;
+    border-color: #ca3838;
+}
+.btn-red:active {
+    color: #ffffff;
+    background-color: #a32c2c;
+    border-color: #ca3838;
+}
+
+
+/* PAGINATION */
+.pagination > li {
+    /* transition */
+    -webkit-transition: all .15s ease;
+    -moz-transition:    all .15s ease;
+    transition:         all .15s ease;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #42a35a;
+    border-color: #dddddd;
+}
+.pagination > li > a,
+.pagination > li > span {
+    color: #555555;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+    color: #555555;
+    background-color: #f0f0f0;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+    color: #999;
+}
+.pagination > li,
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    cursor: pointer;
+}
+
+
+/* OTHER */
+.demo-form {
+    margin-top: 5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.generated-text-field {
+    width: 100%;
+}
+
+.generated-textarea-field {
+    width: 100%;
+    max-width: 100%;
+}
