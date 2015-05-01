@@ -95497,7 +95497,6 @@ module.exports = Marty.createStore({
         
 
         function closeForm ( dfd ) {
-            log.debug( 'DataFormStore.closeForm :: ', dfd );
             this.state = this.state.set( 'isVisible', false );
             dfd.resolve( null );
         }
@@ -95510,12 +95509,10 @@ module.exports = Marty.createStore({
             var formErrors = validateForm( formMeta, formValue );
 
             if ( isFormValid( formErrors ) ) {
-                log.debug( 'DataFormStore.saveForm :: isValid' );
                 this.state = s.set( 'isVisible', false );
                 dfd.resolve( this.state.get( 'formValue' ) );
             }
             else {
-                log.debug( 'DataFormStore.saveForm :: !isValid' );
                 this.state = s.set( 'formErrors', I.Map( formErrors ) );
                 dfd.reject( formErrors );
             }
@@ -95534,8 +95531,6 @@ module.exports = Marty.createStore({
             .mergeIn([ 'formMeta', 'fields', 'id' ], 
                      { isHidden: true });
 
-        log.debug( 'DetailsFormStore.addRow :: ', 
-                   this.state.toJS() );
         this.hasChanged();
     },
 
@@ -95553,8 +95548,6 @@ module.exports = Marty.createStore({
 
     
     updateForm: function ( newFormValue, errs ) {
-        log.debug( 'DetailsFormStore.updateForm :: ', errs );
-
         var s = this.state;
         this.state = s.set( 'formValue' , I.fromJS( newFormValue ) ) 
                       .set( 'formErrors', I.fromJS( errs ) );
@@ -95639,8 +95632,9 @@ module.exports = Marty.createStore({
                         rows = rows.splice( editedIdx, 1, val );
                     }
                     else {
-                        newVal = val.set( 'id', 'record_' + rowsNum );
-                        rows   = rows.push( newVal );
+                        newVal  = val.set( 'id', 'record_' + rowsNum );
+                        rows    = rows.push( newVal );
+                        rowsNum = rows.count();
                     }
 
                     self.__rows = rows;
