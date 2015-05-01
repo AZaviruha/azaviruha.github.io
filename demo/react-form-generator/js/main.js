@@ -71598,7 +71598,25 @@ function formGenerator ( conf ) {
              * }
              * ```
              */
-            onChange:          React.PropTypes.func
+            onChange:          React.PropTypes.func,
+
+
+            
+            /**
+             * ### onEvent 
+             * Fires when field triggers some of standard DOM events.
+             * Callback will get the next data:
+             * @param {string} fieldID  - ID of field that triggers
+             *                            DOM event
+             * @param {string} eventName - name of event (one of
+             *                             stadart DOM events).
+             * @param {Object} eventInfo - useful info about event.
+             * @param {SyntheticEvent} eventInfo.originalEvent - original React event
+             * @param {string} eventInfo.path - %fiendID%:%eventName%
+             *                                  (useful for event routing). 
+             * ```
+             */
+            onEvent:          React.PropTypes.func
         },
 
         mixins: MIXINS,
@@ -71846,7 +71864,16 @@ module.exports = function ( React, tools ) {
 
         render : function () {
             var css     = this._css()
-              , fldConf = this._field();
+              , fldConf = this._field()
+              , fldMeta = fldConf.meta;
+
+
+            /**
+             * Don't render layout for undefined 
+             * or explicitly hidden field.
+             */
+            if ( !fldMeta || fldMeta.isHidden ) 
+                return null;
             
             return (
                 React.createElement("div", {className: css.wrapper, key: this.props.key}, 
@@ -71928,6 +71955,8 @@ module.exports = function ( React, tools ) {
                 isUnwrapped && config.css
             );
 
+            if ( meta.isHidden ) return null;
+
             return (
                 React.createElement("button", {
                     id: config.fieldID, 
@@ -71992,8 +72021,13 @@ module.exports = function ( React, tools ) {
             var config   = this._conf()
               , meta     = this._meta()
               , spec     = this._spec()
+              , value    = config.value
               , truthMap = getOrNull( spec, 'truthMap' )
-              , checked  = truthMap[ "true" ] === config.value;
+              , checked  = truthMap 
+                    ? truthMap[ "true" ] === value
+                    : value;
+            
+            if ( meta.isHidden ) return null;
 
             return (
                 React.createElement("input", {
@@ -72057,7 +72091,10 @@ module.exports = function ( React, tools ) {
         /* =========================================================== */
         render: function () {
             var config = this._conf()
+              , meta   = this._meta()
               , spec   = this._spec();
+
+            if ( meta.isHidden ) return null;
 
             return (
                 React.createElement("div", {className: "generated-radiogroup-field", 
@@ -72149,6 +72186,8 @@ module.exports = function ( React, tools ) {
             var config = this._conf()
               , spec   = this._spec()
               , meta   = this._meta();
+
+            if ( meta.isHidden ) return null;
 
             return (
                 React.createElement("select", {id: config.fieldID, 
@@ -72333,6 +72372,10 @@ var tools          = require( './../tools' )
 
 var LayoutAccessors = {
     componentWillMount: function() {
+        /**
+         * Returns "content" metadata from
+         * "layout" section.
+         */
         this._meta = function () {
             return getOrDefault( this, 'props.meta', {} );
         };
@@ -72386,8 +72429,12 @@ var PrimitiveAccessors = {
 function handleEvent ( eventName ) {
     var self = this;
     return function ( e ) {
-        var fieldID = self._conf().fieldID;
-        self._conf().onEvent( fieldID, eventName, e );
+        var fieldID   = self._conf().fieldID;
+        var eventInfo = {
+            path          : [ fieldID, eventName ].join( ':' ),
+            originalEvent : e
+        };
+        self._conf().onEvent( fieldID, eventName, eventInfo );
     };
 };
 
@@ -94890,6 +94937,10 @@ module.exports = Marty.createActionCreators({
         this.dispatch( Constants.CHANGE_TABLE_PAGE, pageNum );
     },
 
+    addTableRow: function () {
+        this.dispatch( Constants.ADD_TABLE_ROW );
+    },
+
     editTableRow: function ( row ) {
         this.dispatch( Constants.EDIT_TABLE_ROW, row );
     }
@@ -95092,6 +95143,7 @@ var TableForm = React.createClass({
 
     addNewRequest: function () {
         log.debug( 'TableForm.addNewRequest' );
+        Actions.addTableRow();
     },
     
 
@@ -95144,6 +95196,11 @@ var TableForm = React.createClass({
 
         return (
             React.createElement(Row, {ref: "container"}, 
+                React.createElement(Col, {sm: 12, xs: 12, md: 12}, 
+                    React.createElement("p", null, "To see generated form, click on the row's ID" + ' ' + 
+                       "or on the \"New\" button.")
+                ), 
+
                 React.createElement(Col, {sm: 12, xs: 12, md: 12}, 
                     React.createElement(Button, {
                         sm: 12, xs: 4, md: 2, 
@@ -95247,9 +95304,9 @@ module.exports = Marty.createConstants([
 
 var Marty = require( 'marty' );
 
-
 module.exports = Marty.createConstants([
     'CHANGE_TABLE_PAGE',
+    'ADD_TABLE_ROW',
     'EDIT_TABLE_ROW'
 ]);
 
@@ -95412,7 +95469,8 @@ module.exports = Marty.createStore({
     id: 'DetailsFormStore',
     
     handlers: {
-        openForm        : TableConstants.EDIT_TABLE_ROW,
+        addRow          : TableConstants.ADD_TABLE_ROW,
+        editRow         : TableConstants.EDIT_TABLE_ROW,
         updateForm      : DetailsConstants.UPDATE_DETAILS,
         handleFormEvent : DetailsConstants.HANDLE_FORM_EVENT
     },
@@ -95469,18 +95527,34 @@ module.exports = Marty.createStore({
     /* ====================== ACTIONS ====================== */
     /* ====================================================== */
 
-    openForm: function ( request ) {
-        log.debug( 'DetailsFormStore.openForm :: ', request );
+    addRow: function () {
+        this.state = this.state
+            .set( 'isVisible', true ) 
+            .set( 'formValue', I.Map({}) ) 
+            .mergeIn([ 'formMeta', 'fields', 'id' ], 
+                     { isHidden: true });
 
-        this.state = this.state.set( 'isVisible', true ) 
-                               .set( 'formValue', request );
+        log.debug( 'DetailsFormStore.addRow :: ', 
+                   this.state.toJS() );
+        this.hasChanged();
+    },
 
+
+    editRow: function ( request ) {
+        log.debug( 'DetailsFormStore.editRow :: ', request );
+
+        this.state = this.state
+            .set( 'isVisible', true ) 
+            .set( 'formValue', request )
+            .mergeIn([ 'formMeta', 'fields', 'id' ], 
+                     { isHidden: false });
         this.hasChanged();
     },
 
     
     updateForm: function ( newFormValue, errs ) {
         log.debug( 'DetailsFormStore.updateForm :: ', errs );
+
         var s = this.state;
         this.state = s.set( 'formValue' , I.fromJS( newFormValue ) ) 
                       .set( 'formErrors', I.fromJS( errs ) );
@@ -95522,6 +95596,7 @@ module.exports = Marty.createStore({
     
     handlers: {
         changePage      : TableConstants.CHANGE_TABLE_PAGE,
+        addRow          : TableConstants.ADD_TABLE_ROW,
         editRow         : TableConstants.EDIT_TABLE_ROW,
         handleFormEvent : DetailsConstants.HANDLE_FORM_EVENT
     },
@@ -95550,14 +95625,33 @@ module.exports = Marty.createStore({
             var self = this;
 
             prom.then(function ( val ) {
+                var recordID, rowsNum, newVal, rows, editedIdx;
+
                 if ( val ) {
-                    var idx = self.__rows.findIndex(function ( el ) {
-                        return el.get( 'id' ) === val.get( 'id' );
-                    });
-                    self.__rows = self.__rows.splice( idx, 1, val );
+                    recordID = val.get( 'id' );
+                    rows     = self.__rows;
+                    rowsNum  = rows.count();
+
+                    if ( recordID ) {
+                        editedIdx = rows.findIndex(function ( el ) {
+                            return el.get( 'id' ) === recordID;
+                        });
+                        rows = rows.splice( editedIdx, 1, val );
+                    }
+                    else {
+                        newVal = val.set( 'id', 'record_' + rowsNum );
+                        rows   = rows.push( newVal );
+                    }
                 }
                 
-                self.state = self.state.set( 'isVisible', true );
+                self.__rows = rows;
+                self.state  = self.state
+                    .set( 'isVisible', true )
+                    .mergeIn([ 'paging' ], {
+                        total   : Math.ceil( rowsNum / PAGE_SIZE ),
+                        current : 0,
+                        size    : PAGE_SIZE
+                    });
 
                 /* Well, it's a kind of workaround
                    I'm working on this */
@@ -95580,6 +95674,11 @@ module.exports = Marty.createStore({
         this.hasChanged();
     },
     
+
+    addRow: function ( row ) {
+        this.state = this.state.set( 'isVisible', false );
+        this.hasChanged();
+    },
 
     editRow: function ( row ) {
         this.state = this.state.set( 'isVisible', false );
@@ -95620,7 +95719,7 @@ module.exports = Marty.createStore({
 function createRows ( size ) {
     return I.Range( 0, size ).map(function ( idx ) { 
         return I.Map({
-            id     : 'request_' + idx,
+            id     : 'record_' + idx,
             author : faker.name.findName(),
             title  : faker.lorem.sentence()
         });
