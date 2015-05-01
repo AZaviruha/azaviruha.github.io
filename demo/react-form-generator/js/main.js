@@ -95642,16 +95642,17 @@ module.exports = Marty.createStore({
                         newVal = val.set( 'id', 'record_' + rowsNum );
                         rows   = rows.push( newVal );
                     }
+
+                    self.__rows = rows;
+                    self.state  = self.state
+                        .mergeIn([ 'paging' ], {
+                            total   : Math.ceil( rowsNum / PAGE_SIZE ),
+                            current : 0,
+                            size    : PAGE_SIZE
+                        });
                 }
                 
-                self.__rows = rows;
-                self.state  = self.state
-                    .set( 'isVisible', true )
-                    .mergeIn([ 'paging' ], {
-                        total   : Math.ceil( rowsNum / PAGE_SIZE ),
-                        current : 0,
-                        size    : PAGE_SIZE
-                    });
+                self.state = self.state.set( 'isVisible', true );
 
                 /* Well, it's a kind of workaround
                    I'm working on this */
