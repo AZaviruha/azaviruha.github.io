@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Test form</title>
+		<link rel="stylesheet" href="./css/normalize.css">
+		<link rel="stylesheet" href="./css/bootstrap.css">
+		<link rel="stylesheet" href="./css/app.css">
+	</head>
+	<body>
+        <div id="app"
+             class="container" 
+             ng-controller="AppController">
+
+            <custom-datepicker id="currencies2" 
+                               format="DD.MM.YYYY" 
+                               ng-model="model.currentDate" 
+                               ng-change="logDate()"/>
+        </div>
+
+		<script src="./js/vendor/moment.min.js"></script>
+		<script src="./js/vendor/angular.min.js"></script>
+		<script src="./js/app.js"></script>
+        
+        <script type="text/ng-template" id="/tpl.html">
+            <div class="custom-datepicker">
+                <input type="text" 
+                       placeholder="Click to select date"
+                       ng-model="formated"
+                       ng-change="updateCurrent()"
+                       ng-click="open()" />
+                
+                <div class="datepicker-popup"
+                     ng-show="isOpened()">
+                    <div class="datepicker-header">
+                        <div class="arrow-left"
+                             ng-click="getPrevMonth( $event )"
+                             >&#9664;</div>
+
+                        <div class="middle">
+                          <span class="month">{{month()}}</span>
+                          <span class="year">{{year()}}</span>
+                        </div>
+
+                        <div class="arrow-right"
+                             ng-click="getNextMonth( $event )"
+                             >&#9654;</div>
+                    </div>
+
+                    <div class="datepicker-days-header">
+                        <div class="padding-left">&nbsp;</div>
+
+                        <div class="day-name"
+                             ng-repeat="el in daysOfWeek"
+                             ng-class="{first: $first}">{{el}}</div>
+
+                        <div class="padding-right">&nbsp;</div>
+                    </div>
+
+                    <div class="datepicker-days-body">
+                        <div class="days-row" 
+                             ng-repeat="group in dayGroups">
+                            <div class="padding-left">&nbsp;</div>
+
+                            <div class="day-value" 
+                                 ng-repeat="day in group track by day.date"
+                                 ng-class="{ first: $first, 'not-current': !day.isCurrent, selected: isSelected( day.date )}"
+                                 ng-click="selectDay( day.date, $event )">
+                              <span>{{day.text}}</span>
+                            </div>
+
+                            <div class="padding-right">&nbsp;</div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="datepicker-days-footer">
+                        <div class="button yellow"
+                             ng-click="close( $event )">
+                          <span class="text">OK</span>
+                          <span class="arrow">&#9654;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+	</body>
+</html>

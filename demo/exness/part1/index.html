@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Test form</title>
+		<link rel="stylesheet" href="./css/normalize.css">
+		<link rel="stylesheet" href="./css/bootstrap.css">
+		<link rel="stylesheet" href="./css/app.css">
+	</head>
+	<body>
+        <div id="app"
+             class="container" 
+             ng-controller="AppController">
+          
+            <form novalidate>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group">
+                            <label for="currencies1">Select currency:</label>
+                            <custom-select id="currencies1"
+                                           class="form-control"
+                                           items="model.currencies1"
+                                           ng-model="model.selectedCurr1"
+                                           ng-change="hideDetails()">
+                            </custom-select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group" 
+                             ng-show="isCurrencies2Visible()">
+                            <label for="currencies2">Select another currency:</label>
+                            <custom-select id="currencies2"
+                                           class="form-control"
+                                           items="model.currencies2"
+                                           ng-model="model.selectedCurr2"
+                                           ng-change="fillDetails()">
+                            </custom-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="isDetailsVisible()" class="row">
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group" >
+                            <label for="bid">Bid:</label>
+                            <input id="bid"
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="model.details.bid"
+                                   readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group" >
+                            <label for="ask">Ask:</label>
+                            <input id="ask"
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="model.details.ask"
+                                   readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group" >
+                            <label for="spread">Spread:</label>
+                            <input id="spread"
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="model.details.spread"
+                                   readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <div class="form-group" >
+                            <label for="move">Move:</label>
+                            <input id="move"
+                                   type="text" 
+                                   class="form-control" 
+                                   ng-model="model.details.move"
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+		<script src="./js/vendor/angular.min.js"></script>
+		<script src="./js/app.js"></script>
+        
+        <script type="text/ng-template" id="/tpl.html">
+            <div class="custom-select">
+                <div class="selected"
+                     ng-click="toggle()">{{current.text}}</div>
+                <div class="selectArrow" 
+                     ng-click="open()"
+                     ng-show="!isOpened()">&#9660;</div>
+                <div class="selectOptions" ng-show="isOpened()">
+                    <div class="option" 
+                         data-value="{{el.id}}" 
+                         ng-click="selectItem( el )"
+                         ng-repeat="el in items track by el.id">
+                        <div class="text">{{el.text}}</div>
+                        <div class="checked" 
+                             ng-show="isSelected( el )">&#10004;</div>
+                    </div>
+                </div>
+                
+                <input type="text" ng-model="current.id" hidden/>
+            </div>
+        </script>
+
+	</body>
+</html>

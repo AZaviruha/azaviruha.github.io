@@ -1,0 +1,147 @@
+#app {
+    margin-top: 15px;
+}
+
+.custom-datepicker {}
+
+
+.custom-datepicker input {
+    padding: 5px;
+    border:  1px solid #ccc;
+}
+
+
+.datepicker-popup {
+    position:   relative;
+    width:      270px;
+    min-height: 200px;
+    border:     1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+    z-index:    999;
+    cursor:     default;
+}
+
+
+/* ==================== DatePicker Header ==================== */
+.datepicker-header {
+    position:    relative;
+    text-align:  center;
+    line-height: 32px;
+    clear:       both;
+}
+
+.datepicker-header .arrow-left {
+    float:   left;
+    width:   10px;
+    cursor:  pointer;
+    text-align: right;
+    margin-left: 19px;
+}
+
+.datepicker-header .middle {
+    float: left;
+    width: 210px;
+    font-size: 20px;
+}
+
+.datepicker-header .year {
+    font-size:      15px;
+    vertical-align: super;
+}
+
+.datepicker-header .arrow-right {
+    float:   left;
+    width:   10px;
+    margin-right: 19px;
+    cursor:  pointer;
+    text-align: left;
+}
+
+.datepicker-days-header {
+    text-align: center;
+    clear:      both;
+}
+
+.datepicker-days-header .padding-left,
+.datepicker-days-header .padding-right {
+    float:   left;
+    width:   16.5px;
+}
+
+.datepicker-days-header .day-name {
+    float:       left;
+    width:       25px;
+    margin-left: 10px;
+    font-size:   11px;
+    color:       #ccc;
+}
+
+.datepicker-days-header .day-name.first {
+    margin-left: 0px;
+}
+
+
+/* ==================== DatePicker Body ==================== */
+.datepicker-days-body {
+    text-align: left;
+}
+
+.datepicker-days-body .days-row {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.datepicker-days-body .day-value {
+    float:       left;
+    width:       25px;
+    margin-left: 10px;
+    font-size:   14px;
+    cursor:      pointer;
+}
+
+.datepicker-days-body .day-value.first {
+    margin-left: 0px;
+}
+
+.datepicker-days-body .day-value.not-current {
+    color: #ccc;
+}
+
+.datepicker-days-body .day-value.selected span {
+    border-radius:    50%;
+    background-color: yellow;
+    padding:          3px;
+}
+
+.datepicker-days-body .padding-left,
+.datepicker-days-body .padding-right {
+    float:   left;
+    width:   16.5px;
+}
+
+
+
+/* ==================== DatePicker Footer ==================== */
+.datepicker-days-footer {
+    margin-top:    20px;
+    margin-left:   16.5px;
+    margin-bottom: 20px;
+}
+
+.datepicker-days-footer .button {
+    width:   156px;
+    padding: 10px 5px;
+    cursor:  pointer;
+}
+
+.datepicker-days-footer .yellow {
+    background-color: yellow;
+}
+
+.datepicker-days-footer .button .text {
+    display:      inline-block;
+    width:        120px;
+    padding-left: 10px;
+}

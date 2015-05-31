@@ -1,0 +1,91 @@
+#app {
+    margin-top: 15px;
+}
+
+.custom-select {
+    position:    relative;
+    display:     inline-block;
+    clear:       both;
+
+    width:       100%;
+    padding:     0px;
+    margin:      0px;
+    line-height: 32px;
+    box-sizing: border-box;
+
+    border-radius: 0px;
+    border-color:  #ccc;
+    cursor:        default;
+    text-align:    left;
+    color:         #888;
+}
+
+.custom-select .selected {
+    width:        100%;
+    margin-right: -30px;
+    overflow:      hidden;
+    background:    #fff;
+    border-color:  #ccc;
+
+    text-indent:   20px;
+}
+
+
+.custom-select .selectArrow {
+    width:       30px;
+    text-align:  center;
+    font-size:   20px;
+    border:      none;
+    border-left: 1px solid #ccc;
+    background:  #fff;
+}
+ 
+.custom-select .selectArrow,
+.custom-select .selected {
+    position: relative;
+    float:    left;
+    height:   32px;
+    z-index:  1;
+}
+
+.custom-select .selectOptions {
+    position:    absolute;
+    clear:       both;
+
+    width:       100%;
+    margin-left: -1px;
+    border:      1px solid #ccc;
+    box-sizing:  content-box;
+
+    top:         28px;
+    padding-top: 2px;
+    border-top:  none;
+
+    overflow:    hidden;
+    background:  #fff;
+
+    z-index:     999
+    /* display:none; */
+}
+     
+ 
+.custom-select .option:hover {
+    color:      #000;
+}           
+
+
+.custom-select .option .text {
+    width:        100%;
+    margin-right: -20px;
+    text-indent:  20px;
+    float:        left;
+}
+
+.custom-select .option .text:hover {
+    background: #f6f6f6;
+}
+
+.custom-select .option .checked {
+    width: 20px;
+    float: left;
+}
