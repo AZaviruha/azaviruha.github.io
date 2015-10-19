@@ -13985,7 +13985,7 @@ function FlowClient(eventBus) {
 }
 
 function _loadProducts() {
-	return fetch('/mocks/products.json', {
+	return fetch('mocks/products.json', {
 		method: 'GET',
 		headers: {
 			'Accept': 'application/json',

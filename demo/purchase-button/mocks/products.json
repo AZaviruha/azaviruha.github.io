@@ -1,0 +1,59 @@
+{
+	"products": [{
+        "appId":"42",
+        "productId":"test-game-zbt",
+        "name":"Test Game (zbt)",
+        "referencePrices":[{
+            "quantity":1,
+            "price":0,
+            "currency":"RUB"
+        }],
+        "offer":{
+	        "prices":[{
+                "quantity":1,
+                "price":0,
+                "currency":"RUB"
+	        }]
+        }
+	}, {
+        "appId":"42",
+        "productId":"test-game-1-month",
+        "name":"Test Game (1 month)",
+        "referencePrices":[{
+            "quantity":1,
+            "price":300,
+            "currency":"RUB"
+        }],
+        "offer":{
+	        "prices":[{
+                "quantity":1,
+                "price":300,
+                "currency":"RUB"
+	        }]
+        }
+	}, {
+        "appId":"42",
+        "productId":"test-game-3-months",
+        "name":"Test Game (3 months)",
+        "referencePrices":[{
+            "quantity":1,
+            "price":800,
+            "currency":"RUB"
+        }],
+        "offer":{
+	        "prices":[{
+                "quantity":1,
+                "price":800,
+                "currency":"RUB"
+	        }]
+        }
+	}, {
+        "appId":"42",
+        "productId":"test-game-6-months",
+        "name":"Test Game (6 months)",
+        "referencePrices":[],
+        "offer":{
+	        "prices":[]
+        }
+	}]
+}
