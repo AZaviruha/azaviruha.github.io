@@ -13815,7 +13815,6 @@ require('domready')(function () {
 	log.debug('App starts...');
 
 	var element = document.querySelector('#btn-buy-preorder-1-month');
-	console.log('element :: ', element);
 
 	var btn = new _customButton.CustomButton({
 		inputEventsMap: (_inputEventsMap = {}, _defineProperty(_inputEventsMap, _controllersFlowClient.FLOW_CLIENT_EVENTS.PRODUCTS_LOADING_STARTED, _customButton.BUTTON_EVENTS.BLOCKING_REQUESTED), _defineProperty(_inputEventsMap, _controllersFlowClient.FLOW_CLIENT_EVENTS.PRODUCTS_LOADED, _customButton.BUTTON_EVENTS.PRODUCTS_LOADED), _defineProperty(_inputEventsMap, _controllersFlowClient.FLOW_CLIENT_EVENTS.PRODUCT_PURCHASING_STARTED, _customButton.BUTTON_EVENTS.BLOCKING_REQUESTED), _defineProperty(_inputEventsMap, _controllersFlowClient.FLOW_CLIENT_EVENTS.PRODUCT_PURCHASED, _customButton.BUTTON_EVENTS.PRODUCT_PURCHASED), _inputEventsMap),
