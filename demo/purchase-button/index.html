@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PurchaseSolution</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <link rel="stylesheet" href="node_modules/ladda/dist/ladda-themeless.min.css">
+    </head>
+
+
+    <body>
+        <!-- .container is main centered wrapper -->
+        <div id="app" class="container">
+
+            <div class="row">
+            </div>
+
+            <div class="row">
+                <div class="four columns">
+                    <button 
+                       id="btn-request-zbt"
+                       class="button-primary ladda-button"
+                       data-style="expand-left"
+                       data-js-widgets="purchaseButton"
+                       data-app-id="42"
+                       data-product-id="test-game-zbt"
+                    >Подать заявку на ЗБТ</button>
+                </div>
+
+                <div class="two columns">
+                    <button 
+                       id="btn-buy-preorder-1-month"
+                       class="button-primary ladda-button"
+                       data-style="expand-left"
+                       data-app-id="42"
+                       data-product-id="test-game-1-month"
+                    >Купить</button>
+                </div>
+
+                <div class="one column">&nbsp;</div>
+
+                <div class="two columns">
+                    <button 
+                       id="btn-buy-preorder-3-months"
+                       class="button-primary ladda-button"
+                       data-style="expand-left"
+                       data-js-widgets="purchaseButton"
+                       data-app-id="42"
+                       data-product-id="test-game-3-months"
+                    >Купить</button>
+                </div>
+
+                <div class="one column">&nbsp;</div>
+
+                <div class="two columns">
+                    <button 
+                       id="btn-buy-preorder-6-months"
+                       class="button-primary ladda-button"
+                       data-style="expand-left"
+                       data-js-widgets="purchaseButton"
+                       data-app-id="42"
+                       data-product-id="test-game-6-months"
+                    >Купить</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/dist/bundle.js"></script>
+    </body>
+</html>
