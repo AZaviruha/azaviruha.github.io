@@ -4219,7 +4219,7 @@ function showSignIn(payload) {
 }
 
 function showExchange(payload) {
-    return fetch('./templates/exchange.mst', {
+    return fetch('/azaviruha.github.io/demo/fsm-router/templates/exchange.mst', {
         method: 'GET',
         headers: {
             'Accept': 'html',
