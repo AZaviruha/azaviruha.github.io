@@ -1,0 +1,7 @@
+<div id="exchange">
+    <h1>Exchange for {APP_ID}</h1>
+
+    <div>
+        <div class="Link" data-href="/">bonuses</div>
+    </div>
+</div>
