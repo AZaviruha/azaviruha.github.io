@@ -97,7 +97,6 @@
 					total: this.state.total,
 					current: this.state.current,
 					visiblePages: this.state.visiblePage,
-					titles: { first: '<|', last: '>|' },
 					onPageChanged: this.handlePageChanged
 				});
 			}
