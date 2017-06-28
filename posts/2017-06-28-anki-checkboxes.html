@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Learning Log - Создание карточек Anki с множественными вариантами ответа.</title>
+        <link rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/ebc4dc306a.css">
+    </head>
+    <body>
+        <header>
+            <h1 class="title"><a href="../">Learning Log</a></h1>
+            <img class="logo" src="../images/logo.png" />
+        </header>
+
+
+        <div class="left-block">
+            <nav>
+                <ul>
+                    <li><a href="../">Статьи</a></li>
+                    <li><a href="https://github.com/AZaviruha" target="_blank">GitHub</a> <i class="fa fa-share" aria-hidden="true"></i></li>
+                </ul>
+            </nav>
+        </div>
+
+        <main role="main">
+            <section>
+                <article class="post-full">
+    <section class="header">
+        <h2>Создание карточек Anki с множественными вариантами ответа.</h2>
+
+        <div class="post-date">2017-06-28</div>
+    </section>
+    <section>
+        <p>В этой статье я расскажу о создании шаблона для карточек <a href="https://apps.ankiweb.net/">Anki</a>, позволяющего выбрать несколько вариантов ответа (с помощью checkboxes). Материал рассчитан на опытных пользователей Anki, в идеале - с опытом программирования.</p>
+<p>Результат будет выглядеть примерно так:</p>
+<div class="figure">
+<img src="../images/posts/anki-checkboxes-1.png" title="результат" alt="img-1" />
+<p class="caption">img-1</p>
+</div>
+<p>Для удобства предлагаю создать новую колоду. Добавим в нее первую карточку, попутно создав новый тип. В качестве прототипа выберем самый простой из доступных типов - Basic. На рисунке ниже показано куда и в какой последовательности нужно нажимать для выполнения данной процедуры:</p>
+<div class="figure">
+<img src="../images/posts/anki-checkboxes-2.png" alt="img-2" />
+<p class="caption">img-2</p>
+</div>
+<p>Более подробную инструкцию можно найти в <a href="https://apps.ankiweb.net/docs/manual.html#card-types">официальном мануале Anki</a>.</p>
+<p>На рисунке также видно какие поля должны быть у нашей карточки:</p>
+<ul>
+<li>Question</li>
+<li>AllVariants</li>
+<li>CorrectVariants</li>
+<li>Splitter</li>
+</ul>
+<p>Давайте посмотрим на пример заполненных полей, чтобы стало понятнее что к чему:</p>
+<div class="figure">
+<img src="../images/posts/anki-checkboxes-3.png" alt="img-3" />
+<p class="caption">img-3</p>
+</div>
+<p>Из скриншота видно, что варианты ответов - как “All”, так и “Correct” - задаются в виде строки с разделителем. Что именно будет являться разделителем - задается в поле “Splitter”.</p>
+<p>Важно! После создания карточки не редактируйте значение в поле “Splitter” для этой карточки. Это приведет к её “поломке”. Я предупредил. =)</p>
+<p>В поле “CorrectVariants”, используя все тот же разделитель, вводим список правильных ответов. Нумерация ответов начинается с нуля. Т.е. в данном примере правильными будут “Вариант 1” (0-й элемент) и “Вариант 2” (1-й элемент).</p>
+<p>Итак, на данном этапе у нас создан новый тип карточек, создана модель карточки и все ее поля заполнены. Теперь перейдем к самой основной части - подготовке шаблона. Эта часть является основной, т.к. весь функционал будет реализован за счет JavaScript-движка встроенного в рендерер карточек.</p>
+<p>Сразу скажу, что для реализации нам потребуется аккаунт Firebase (бесплатный). Это связано с необходимостью как-то сохранить выбранные пользователем варианты на карточке с вопросом, и затем получить к ним доступ из карточки с ответом. К сожалению, насколько мне удалось разобраться, каждая сторона Anki-карточки рендерится как независимый DOM-документ, безо всякой возможности коммуникации между ними.</p>
+<p>Поэтому нам и потребуется некое внешнее хранилище. В данном случае - Firebase.</p>
+<p>Вкратце, для получения Firebase-хранилища нужно сделать следующее:</p>
+<ul>
+<li>зарегистрироваться на сайте <a href="https://firebase.google.com/" class="uri">https://firebase.google.com/</a>;</li>
+<li>зайти в <a href="https://console.firebase.google.com">Firebase Console</a>;</li>
+<li>добавить новый проект;</li>
+<li>в разделе “Database” этого проекта создать новую Realtime Database, в которую добавить поле “lastcheckboxes”.</li>
+</ul>
+<p>В результате у вас должно получиться что-то подобное:</p>
+<div class="figure">
+<img src="../images/posts/anki-checkboxes-4.png" alt="img-4" />
+<p class="caption">img-4</p>
+</div>
+<p>Кроме того, нужно 1) разрешить анонимный доступ к данному хранилищу и 2) убрать проверку авторизации. Второй пункт можно выполнить не выходя из раздела Database. Для этого кликните по кнопке “Правила” (на синей плашке), и замените содержимое следующим:</p>
+<script src="https://gist.github.com/AZaviruha/ac12f1ae111e3647871ae28b5386d6c5.js"></script>
+<p>Для выполнения первого пункта нужно перейти в раздел “Authentication”/“Способы входа” и включить анонимный доступ.</p>
+<p>На этом все подготовительные работы считаем законченными, и приступаем к добавлению желанного функционала. Для этого, в шаблоне нашей Anki-карточки заменяем все содержимое секции “Front Template” следующим кодом:</p>
+<script src="https://gist.github.com/AZaviruha/4693a9130f6a6c2265caa1b1b34acf15.js"></script>
+<p>Значение переменной <code>FB_DB_NAME</code> нужно заменить, вставив вместо трех точек ID базы данных, который сгенерировал для вас Firebase (например, “myproject-4321”).</p>
+<p>Далее, секцию “Styling” заполняем следущими стилями:</p>
+<script src="https://gist.github.com/AZaviruha/7f6bc9510d05da4c1ee543f354dbcbb6.js"></script>
+<p>И, наконец, содержимое секции “Back Template”:</p>
+<script src="https://gist.github.com/AZaviruha/c28207fe489a63bcfa914462b0fc1a7f.js"></script>
+<p>Тем, кто разбирается в JavaScript должно быть видно, что “алгоритм” предельно простой:</p>
+<ol style="list-style-type: decimal">
+<li>Превращаем строку с вариантами ответов в набор чекбоксов.</li>
+<li>По клику на чекбокс сохраняем состояние в Firebase.</li>
+<li>При открытии карточки с ответом - считываем сохраненное состояние из Firebase.</li>
+<li>Раскрашиваем чекбоксы в “правильно”/“неправильно”.</li>
+</ol>
+<p>Для удобства я сделал разные стили для ошибок типа “не выделил правильный ответ” и “выделил неправильный ответ”. В итоге, получаем такое:</p>
+<div class="figure">
+<img src="../images/posts/anki-checkboxes-5.png" alt="img-5" />
+<p class="caption">img-5</p>
+</div>
+<p>На этом - все!</p>
+    </section>
+</article>
+
+            </section>
+        </main>
+
+        <div class="cleaner"></div>
+
+
+        <footer>
+            Site proudly generated by <a href="http://jaspervdj.be/hakyll" target="_blank">Hakyll</a>
+        </footer>
+    </body>
+</html>
