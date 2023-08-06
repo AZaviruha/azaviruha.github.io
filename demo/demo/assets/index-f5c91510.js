@@ -1,0 +1,2 @@
+var a=Object.defineProperty;var l=(e,r)=>a(e,"name",{value:r,configurable:!0});import{i as o}from"./ui-6e300fc6.js";import"./styles-8f60b454.js";const t=l(({styles:e})=>(e!=null&&o(e),null),"GlobalStyles");try{t.displayName="GlobalStyles",t.__docgenInfo={description:"",displayName:"GlobalStyles",props:{styles:{defaultValue:null,description:"",name:"styles",required:!1,type:{name:"string | string[]"}}}}}catch{}export{t as G};
+//# sourceMappingURL=index-f5c91510.js.map

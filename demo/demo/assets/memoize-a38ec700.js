@@ -1,0 +1,2 @@
+var u=Object.defineProperty;var i=(a,e)=>u(a,"name",{value:e,configurable:!0});import{M as o}from"./_MapCache-7e836c94.js";var f="Expected a function";function p(a,e){if(typeof a!="function"||e!=null&&typeof e!="function")throw new TypeError(f);var t=i(function(){var n=arguments,r=e?e.apply(this,n):n[0],c=t.cache;if(c.has(r))return c.get(r);var h=a.apply(this,n);return t.cache=c.set(r,h)||c,h},"memoized");return t.cache=new(p.Cache||o),t}i(p,"memoize");p.Cache=o;export{p as m};
+//# sourceMappingURL=memoize-a38ec700.js.map
